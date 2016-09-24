@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DayOne Companion | Import</title>
+
+    <script type="text/javascript">
+        window.$ = window.jQuery = require('../resources/jquery-3.1.0.min.js');
+
+        function clearEntries()
+        {
+            document.querySelector('#staging-table tbody').innerHTML = '';
+        }
+    </script>
+
+    <link rel="stylesheet" href="../resources/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/simple-sidebar.css">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="import.html">
+                        Import
+                    </a>
+                </li>
+                <li>
+                    <a href="instructions.html">Instructions</a>
+                </li>
+                <li>
+                    <a href="settings.html">Settings</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <h3>
+                            <a id="DayOne_Companion_Instructions_0"></a> DayOne Companion Instructions</h3>
+                        <p>Reading the instructions will prove most helpful. The command line interface (CLI) that DayOne has put out is very limited and it’s important to follow a process to get your entries in correctly.</p>
+                        <p>This tool is designed to help you import files in various formats into DayOne while preserving as much meta-data as possible including dates, titles, and tags.</p>
+                        <p>I highly recommend using DayOne 2 for importing these entries.</p>
+                        <p><strong>Follow these steps:</strong></p>
+                        <ul>
+                            <li>Before importing entries it’s helpful to</li>
+                            <li>If you’re using DayOne 2 start by creating a new journal called “Import” and move this journal to the top of your journals list.
+                                <ul>
+                                    <li>Entries imported via the CLI will by default be added to the top journal in your list. By adding your entries in bathes to a staging journal you can add tags to all the entries and review dates and other information
+                                        for accuracy before dragging them into the journal they belong in.</li>
+                                </ul>
+                            </li>
+                            <li>It’s helpful to work on a specific group of entries at a time. Pick a group of fi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+</body>
+
+</html>

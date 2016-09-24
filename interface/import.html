@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DayOne Companion | Import</title>
+
+    <script type="text/javascript">
+
+        window.$ = require('../resources/jquery-3.1.0.min.js');
+        function clearEntries() {
+            document.querySelector('#staging-table tbody').innerHTML = '';
+        }
+
+    </script>
+
+    <style media="screen">
+        div.drop {
+            width: 100%;
+            height: 298px;
+            text-align: center;
+            vertical-align: middle;
+            border: 3px dotted #D4D4D4;
+            cursor: copy;
+        }
+        .staging-item {
+            border: 1px solid gray;
+            white-space: pre-wrap;
+        }
+        .alert {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 250px;
+            border-radius: 0!important;
+            margin: 0!important;
+        }
+        #sidebar {
+            position:absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            background: #000;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../resources/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/simple-sidebar.css">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="import.html">
+                        Import
+                    </a>
+                </li>
+                <li>
+                    <a href="instructions.html">Instructions</a>
+                </li>
+                <li>
+                    <a href="settings.html">Settings</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1 style="color:#41B3FA;">DayOne Companion</h1>
+                <hr class="usl-sm" style="border-top: 1px solid #41B3FA; border-bottom: 0;">
+                <p>
+                    Drag and drop your files below to import them into DayOne.
+                </p>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form id="formMain" role="form" action="" method="" onsubmit="return false;" class="well">
+
+                            <div class="form-group">
+                                <label for="fld_title">Get Title From:</label>
+                                <select id="title-from" class="form-control" name="fld_title">
+                                    <option value="filename">Use Filename</option>
+                                    <option value="regex">Use a Regex</option>
+                                    <option value="">Use the first line in the text (No action)</option>
+                                </select>
+                            </div>
+
+                            <div id="file-regex-container" class="form-group" style="display:none;">
+                                <label for="fld_file_regex">Title Regex</label>
+                                <input id="file-regex" type="text" name="fld_file_regex" value="/Subject\: .+\n/" class="form-control" placeholder="/Subject\: .+\n/" />
+                            </div>
+
+                            <label>
+                                <input id="rename_file" type="checkbox" checked name="rename_file" /> Add "DayOne" to filename after import
+                            </label>
+
+                            <div class="">
+                                <button type="button" onclick="document.getElementById('formMain').reset();" class="btn btn-default">Reset</button>
+                            </div>
+
+                            <div class="" style="margin: 10px 0;">
+                                <a href="#" class="advanced-toggle" onclick="$('.advanced-toggle').toggle(); return false;">Show Advanced Settings</a>
+                                <a href="#" class="advanced-toggle" onclick="$('.advanced-toggle').toggle(); return false;" style="display: none;">Hide Advanced Settings</a>
+                            </div>
+
+                            <div class="advanced-toggle" style="display: none;">
+
+                                <div class="form-group">
+                                    <label for="fld_regex">Split input text into multiple entries - add regex to define break points</label>
+                                    <input id="regex" type="text" name="fld_regex" value="" class="form-control"  placeholder="[^-](\s+)From: " />
+                                </div>
+
+                                <label>
+                                    <input id="add_parent_folder" type="checkbox" name="add_parent_folder" /> Add parent folder to title name
+                                </label>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="drop">
+                            <p style="margin-top: 125px;">
+                                Drag and Drop Files here.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div id="actions">
+                    <button name="clear" class="btn btn-sm btn-default" onclick="clearEntries();">Clear Table</button>
+                    <button name="clear" class="btn btn-sm btn-default" onclick="$('.create-entry').click();">Import All</button>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table" id="staging-table" style="display: nonew;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Entry Title
+                                    </th>
+                                    <th>
+                                        Entry Date
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+        <div id="alert-info" class="alert alert-info" style="display: none;"></div>
+        <div id="alert-danger" class="alert alert-danger" style="display: none;"></div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript">
+
+    $('#title-from').change(function(){
+        if ($(this).val() == 'regex') {
+            $('#file-regex-container').show();
+        } else {
+            $('#file-regex-container').hide();
+        }
+    });
+
+    window.onerror = function(msg, url, line, col, error) {
+        // Note that col & error are new to the HTML 5 spec and may not be
+        // supported in every browser.  It worked for me in Chrome.
+
+        $('#alert-danger').html('<b>An error occured while importing your file.</b> <p> Please try: <ul> <li>Removing any special characters from your filename</li> <li>Do not try to import a folder or directory</li> </ul> </p>')
+        $('#alert-danger').show();
+
+        setTimeout(function(){
+            $('#alert-danger').slideUp();
+        }, 5000);
+
+    };
+
+    // You can also require other files to run in this process
+    require('../js/import.js');
+    require('../js/settings.js');
+
+</script>
+
+
+</html>
