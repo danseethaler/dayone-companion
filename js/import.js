@@ -348,7 +348,7 @@ function createEntry(config) {
 
     var config = config;
 
-    if (config.photoPath) {
+    if (config.photoPath && config.photoPath != "undefined") {
         var command = 'dayone -p="' + config.photoPath + '" -d="' + config.date + '" new';
     } else {
         var command = 'dayone -d="' + config.date + '" new';
