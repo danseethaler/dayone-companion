@@ -70,6 +70,11 @@ function readFileSync_encoding(filename, encoding) {
     return iconvlite.decode(content, encoding);
 }
 
+function notifyWarning(message) {
+    $('#alert-info').show();
+    $('#alert-info-message').html($('#alert-info-message').html() + '<p>' + message + '</p>');
+}
+
 function iterateDirectory(directory, regex) {
 
     var stats = fs.statSync(directory);
@@ -95,7 +100,7 @@ function stageFile(config){
     var config = config; // Set the config within this scope to be access in fileReadSync
 
     // Get the contents of the file
-    switch (config.file.ext) {
+    switch (config.file.ext.toLowerCase()) {
 
         case '.pdf':
 
@@ -183,8 +188,7 @@ function stageFile(config){
             break;
 
         default:
-            throw 'Unsupported file type: ' + config.file.ext;
-
+            notifyWarning('Unsupported file type: ' + config.file.basename + '<b>' + config.file.ext + '</b>' );
     }
 
     var contentsList = [],

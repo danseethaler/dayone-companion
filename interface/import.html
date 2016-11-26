@@ -175,8 +175,16 @@
         </div>
         <!-- /#page-content-wrapper -->
 
-        <div id="alert-info" class="alert alert-info" style="display: none;"></div>
-        <div id="alert-danger" class="alert alert-danger" style="display: none;"></div>
+        <div id="alert-info" class="alert alert-info" style="display: none;">
+            <button type="button" class="close close-x" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div id="alert-info-message"></div>
+
+        </div>
+        <div id="alert-danger" class="alert alert-danger" style="display: none;">
+            <button type="button" class="close close-x" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <b>An error occured:</b>
+            <div id="alert-warning-message"></div>
+        </div>
 
     </div>
 
@@ -192,16 +200,19 @@
         }
     });
 
+    $('.close-x').on('click', function() {
+        $('#alert-info-message').html('');
+        $('#alert-info').slideUp();
+
+        $('#alert-warning-message').html('');
+        $('#alert-danger').slideUp();
+    });
+
+
     window.onerror = function(msg, url, line, col, error) {
-        // Note that col & error are new to the HTML 5 spec and may not be
-        // supported in every browser.  It worked for me in Chrome.
 
-        $('#alert-danger').html('<b>An error occured while importing your file.</b> <p> Please try: <ul> <li>Removing any special characters from your filename</li> <li>Do not try to import a folder or directory</li> </ul> </p>')
+        $('#alert-warning-message').html('<p>' + error + '</p><p> <b>You might try</b>: <ul> <li>Removing any special characters from your filename or file path.</li> <li>Do not try to import a folder or directory</li> </ul> </p>')
         $('#alert-danger').show();
-
-        setTimeout(function(){
-            $('#alert-danger').slideUp();
-        }, 5000);
 
     };
 

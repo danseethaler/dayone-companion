@@ -1,9 +1,24 @@
 # dayone-companion
 Expanding on the functionality of the DayOne Journal App
 
-### Build Instructions
-This app is designed to import various document formats into DayOne journal entries while preserving as much metadata as possible. To build the project download the repo and run `npm install`. You will need pandoc installed to support Word Documents. You can install the Pandoc CLI with `brew install pandoc` or at this url https://github.com/jgm/pandoc/releases/download/1.17.2/pandoc-1.17.2-osx.pkg.
+## Overview
+This app is designed to import various document formats into DayOne journal entries while preserving as much metadata as possible.
 
+Currently Supported File Types
+- pdf
+- rtf
+- txt
+- doc
+- pages
+- htm
+- html
+- docx
+- png
+- jpg
+- jpeg
+
+### Build Instructions
+To build the project download the repo and run `npm install`. You will need pandoc installed to support Word Documents. You can install the Pandoc CLI with `brew install pandoc` or at this url https://github.com/jgm/pandoc/releases/download/1.17.2/pandoc-1.17.2-osx.pkg.
 
 
 Reading the instructions will prove most helpful. The command line interface (CLI) that DayOne has put out is very limited and it's important to follow a process to get your entries in correctly.
